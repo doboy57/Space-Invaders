@@ -21,7 +21,13 @@ class Ship:
         #update rect object from self.x.
         self.rect.x = self.rect.x #updates ships position 
     def blitme(self):#5
-            self.screen.blit(self.image, self.rect)                                                                                       
+            self.screen.blit(self.image, self.rect) 
+    def center_ship(self):
+        """center ship in screen"""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)                                                                                      
+
+
 """ We import the pygame module before defining the class. The __init__()
 method of Ship takes two parameters: the self reference and a reference to
 the current instance of the AlienInvasion class''' """
