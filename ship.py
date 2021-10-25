@@ -1,31 +1,44 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
-    def __init__ (self, ai_game): 
-        self.screen = ai_game.screen #1"""A class to manage the ship"""
-        self.settings = ai_game.settings #1"""A class to manage the ship"
-        self.screen_rect = ai_game.screen.get_rect() #2 
-        #load image get its rect
-        self.image = pygame.image.load('images/ship.bmp')#3
+
+class Ship(Sprite):
+    def __init__(self, ai_game):
+        """initialize the ship and set its starting position"""
+        super().__init__()
+        self.screen = ai_game.screen  # 1"""A class to manage the ship"""
+        self.settings = ai_game.settings  # 1"""A class to manage the ship"
+        self.screen_rect = ai_game.screen.get_rect()  # 2
+        # load image get its rect
+        self.image = pygame.image.load("images/ship.bmp")  # 3
         self.rect = self.image.get_rect()
-        self.rect.midbottom = self.screen_rect.midbottom #4
-        self.x = float(self.rect.x)# attribute that can hold deciomal values for keeping track of ship's position
-        self.moving_right = False #We add a self.moving_right attribute in the __init__() method and set it to False initially 
-        self.moving_left = False #We add a self.moving_left attribute in the __init__() method and set it to False initially
-    def update(self): #Then we add update(), which moves the ship right if the flag is True 
+        self.rect.midbottom = self.screen_rect.midbottom  # 4
+        self.x = float(
+            self.rect.x
+        )  # attribute that can hold deciomal values for keeping track of ship's position
+        self.moving_right = False  # We add a self.moving_right attribute in the __init__() method and set it to False initially
+        self.moving_left = False  # We add a self.moving_left attribute in the __init__() method and set it to False initially
+
+    def update(
+        self,
+    ):  # Then we add update(), which moves the ship right if the flag is True
         """update the ships postion based on the movement flag."""
-        if self.moving_right and self.rect.right < self.screen_rect.right: #checks for key press and if ship has reached screen edge
-            self.rect.x += self.settings.ship_speed# move ship by amount in settings
+        if (
+            self.moving_right and self.rect.right < self.screen_rect.right
+        ):  # checks for key press and if ship has reached screen edge
+            self.rect.x += self.settings.ship_speed  # move ship by amount in settings
         if self.moving_left and self.rect.left > 0:
             self.rect.x -= self.settings.ship_speed
-        #update rect object from self.x.
-        self.rect.x = self.rect.x #updates ships position 
-    def blitme(self):#5
-            self.screen.blit(self.image, self.rect) 
+        # update rect object from self.x.
+        self.rect.x = self.rect.x  # updates ships position
+
+    def blitme(self):  # 5
+        self.screen.blit(self.image, self.rect)
+
     def center_ship(self):
         """center ship in screen"""
         self.rect.midbottom = self.screen_rect.midbottom
-        self.x = float(self.rect.x)                                                                                      
+        self.x = float(self.rect.x)
 
 
 """ We import the pygame module before defining the class. The __init__()
@@ -41,4 +54,3 @@ make the value of self.rect.midbottom match the midbottom attribute of the
 screen’s rect x."""
 """At #5, we define the blitme() method, which draws the image to the
 screen at the position specified by self.rect."""
-    

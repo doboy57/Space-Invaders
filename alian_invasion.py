@@ -212,6 +212,7 @@ class AlienInvasion:
         if self.stats.ships_left > 0:
             # Decrement ships_left
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # get rid of any remaining aliens and bullets
             self.aliens.empty()  # after which we empty the groups aliens and bullets
@@ -245,15 +246,14 @@ class AlienInvasion:
         button_clicked = self.play_button.rect.collidepoint(
             mouse_pos
         )  # The flag button_clicked stores a True or False value
-        if (
-            button_clicked and not self.stats.game_active
-        ):  # and the game will restart only if Play is clicked and the game is not currently active
+        if button_clicked and not self.stats.game_active:  # and the game will restart only if Play is clicked and the game is not currently active
             # reset the game settings
             self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()  # we reset the game statistics, which gives the player three new ships
             self.stats.game_active = True
             self.sb.prep_score()
             self.sb.prep_level()
+            self.sb.prep_ships()
 
             # get rid of any remaining aliens and bullets
             self.aliens.empty()  # We empty the aliens and bullets groups
